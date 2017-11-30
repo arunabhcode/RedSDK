@@ -27,13 +27,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
                           $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL Release)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib)
   endif()
 else()
-    target_link_libraries(${PROJECT_NAME}
-      ${CMAKE_SOURCE_DIR}/lib/libR3DSDK.a
+    target_link_libraries(${PROJECT_NAME} PRIVATE
       ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a)
 endif()
 
