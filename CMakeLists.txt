@@ -27,13 +27,18 @@ target_include_directories(${PROJECT_NAME} PUBLIC
                           $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL Release)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib>
+      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MT.lib>)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib>
+      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MTd.lib>)
   endif()
 else()
     target_link_libraries(${PROJECT_NAME} PRIVATE
-      ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a)
+      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a>
+      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>)
 endif()
 
 if(NOT TARGET uninstall)
@@ -54,11 +59,22 @@ endif()
 file(WRITE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
     "include(\${CMAKE_CURRENT_LIST_DIR}/${CMAKE_PROJECT_NAME}Targets.cmake)\n")
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION ${CMAKE_INSTALL_PREFIX}
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include 
+  DESTINATION ${CMAKE_INSTALL_PREFIX}
   FILES_MATCHING PATTERN "*.h")
 
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
         DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
+
+if(MSVC)
+  if(CMAKE_BUILD_TYPE STREQUAL Release)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib DESTINATION lib)
+  elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib DESTINATION lib)
+  endif()
+else()
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
+endif()
 
 install(EXPORT ${CMAKE_PROJECT_NAME}Targets NAMESPACE red::
         DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
