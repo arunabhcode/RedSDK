@@ -1,1 +1,1 @@
-# RedSDK
+# RedSDK and RCPSDK repo
