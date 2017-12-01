@@ -466,7 +466,7 @@ const char * GetCreativeLutPath(CreativeLutHandle handle);
 // The Output Transform takes the RWG/Log3G10 to the final output image via the user selected settings.
 // Returns CSDone if succesful, otherwise returns error code. The following parameters are used:
 // - utf8OutputPath  : UTF-8 path to folder where LUT will be created in. Existing LUT with same name will be overwritten!
-// - edgeLength      : must be in range 17 -- 65 inclusive
+// - edgeLength      : must be in range 17 -- 64 inclusive
 // - colorSpace      : output color space to convert to from REDWideGamutRGB
 // - gammaCurve      : output gamma to convert to from Log3G10
 // - outputToneMap   : tone map to use
@@ -480,7 +480,7 @@ CreateStatus SaveRWGLog3G10ToOutputTransform3DLut(const char * utf8OutputPath, i
 // Returns false if an invalid parameter was supplied. The following parameters are used:
 // - output3DLut     : memory must be allocated before calling function. Size must be at least:
 //                     edgeLength * edgeLength * edgeLength * sizeof(float)
-// - edgeLength      : must be in range 17 -- 65 inclusive
+// - edgeLength      : must be in range 17 -- 64 inclusive
 // - colorSpace      : output color space to convert to from REDWideGamutRGB
 // - gammaCurve      : output gamma to convert to from Log3G10
 // - outputToneMap   : tone map to use
@@ -494,7 +494,7 @@ bool CreateRWGLog3G10ToOutputTransform3DLut(float * output3DLut, int edgeLength,
 // Returns false if an invalid parameter was supplied. The following parameters are used:
 // - output3DLut     : memory must be allocated before calling function. Size must be at least:
 //                       3 * edgeLength * edgeLength * edgeLength * sizeof(float)
-// - edgeLength      : must be in range 17 -- 65 inclusive
+// - edgeLength      : must be in range 17 -- 64 inclusive
 // - output1DLut     : memory must be allocated before calling function. Size must be at least:
 //                       lutSize * sizeof(float)
 // - lutSize         : entries to create in 1D Tone Curve LUT. Must be in range 1024 -- 65536 inclusive.
