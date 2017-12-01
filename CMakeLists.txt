@@ -27,18 +27,19 @@ target_include_directories(${PROJECT_NAME} PUBLIC
                           $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL Release)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
+    target_link_libraries(${PROJECT_NAME} PUBLIC
       $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MT.lib>
       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MT.lib>)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
+    target_link_libraries(${PROJECT_NAME} PUBLIC
       $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MTd.lib>
       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MTd.lib>)
   endif()
 else()
-    target_link_libraries(${PROJECT_NAME} PRIVATE
+    target_link_libraries(${PROJECT_NAME} PUBLIC
       $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a>
-      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>)
+      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>
+      dl)
 endif()
 
 if(NOT TARGET uninstall)
