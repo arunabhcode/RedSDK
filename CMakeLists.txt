@@ -86,7 +86,11 @@ if(MSVC)
   endif()
 else()
     install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/*.so DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDCuda-x64.so DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDDecoder-x64.so DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDOpenCL-x64.so DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDR3D-x64.so DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDR3D-x86.so DESTINATION lib)
 endif()
 
 install(EXPORT ${CMAKE_PROJECT_NAME}Targets NAMESPACE red::
