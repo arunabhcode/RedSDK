@@ -15,12 +15,19 @@ add_library(${PROJECT_NAME} STATIC
     src/base64.c
     src/c_list.c
     src/clist.cpp
+    src/rcp_utils.cpp
     src/decorated_string.c
     src/rcp_api.c
     src/rcp_parser2.c
     src/strlcat.c
     src/strlcpy.c
 )
+
+find_package(Boost COMPONENTS system filesystem thread REQUIRED)
+
+if(MSVC)
+add_definitions("-DBOOST_ALL_NO_LIB")
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC
                           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -37,10 +44,14 @@ if(MSVC)
   endif()
 else()
     target_link_libraries(${PROJECT_NAME} PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a>
+      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a ${Boost_LIBRARIES}>
       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>
       dl)
 endif()
+
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${Boost_INCLUDE_DIR})
+
+# target_link_libraries(${PROJECT_NAME} $)
 
 if(NOT TARGET uninstall)
   configure_file(
