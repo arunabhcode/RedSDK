@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.9)
 project(REDSDK)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall -O3")
@@ -22,23 +22,21 @@ target_include_directories(${PROJECT_NAME} PUBLIC
                           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                           $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 if(MSVC)
-  if(CMAKE_BUILD_TYPE STREQUAL Release)
-    target_link_libraries(${PROJECT_NAME} PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib>
-      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MD.lib>)
-  elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_link_libraries(${PROJECT_NAME} PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib>
-      $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MDd.lib>)
-  endif()
+  target_link_libraries(${PROJECT_NAME} PUBLIC
+    optimized $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib>
+    optimized $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MD.lib>
+    debug $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib>
+    debug $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/R3DSDK-2015MDd.lib>)
 else()
     target_link_libraries(${PROJECT_NAME} PUBLIC
       $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a>
       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>
-      Boost::filesystem
-      Boost::thread
       dl)
 endif()
+
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    Boost::filesystem
+    Boost::thread)
 
 if(NOT TARGET uninstall)
   configure_file(
@@ -66,18 +64,15 @@ install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
         DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
 
 if(MSVC)
-  if(CMAKE_BUILD_TYPE STREQUAL Release)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib
-            DESTINATION lib
-            CONFIGURATIONS Release)
-  elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib
-            DESTINATION lib
-            CONFIGURATIONS Debug)
-  endif()
+  install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib
+          DESTINATION lib
+          CONFIGURATIONS Release)
+  install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib
+          DESTINATION lib
+          CONFIGURATIONS Debug)
 else()
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/REDR3D-x64.so DESTINATION lib)
+  install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
+  install(FILES ${CMAKE_SOURCE_DIR}/lib/REDR3D-x64.so DESTINATION lib)
 endif()
 
 install(EXPORT ${CMAKE_PROJECT_NAME}Targets NAMESPACE red::
