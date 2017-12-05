@@ -71,7 +71,7 @@
  * CLIST_USE_LOGGER: use logging functions
  */
 
-#include "clist.h"
+#include "red/clist.h"
 #include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -80,8 +80,8 @@
 #ifdef CLIST_USE_FILEPARSER
 #include "app_engine/file_format/config_file/fileParser.h"
 #endif
-#include "decorated_string.h"
-#include "stringl.h"
+#include "red/decorated_string.h"
+#include "red/stringl.h"
 
 #if defined(_MSC_VER) && (_MSC_VER < 1900)
 #define snprintf _snprintf

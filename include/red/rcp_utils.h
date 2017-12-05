@@ -2,7 +2,7 @@
 
 #include <boost/thread.hpp>
 
-#include "rcp_api.h"
+#include "red/rcp_api.h"
 
 #ifdef __cplusplus
 extern "C" {

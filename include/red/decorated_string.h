@@ -58,7 +58,7 @@
 #define DECORATED_STRING_H
 
 #include <stdlib.h>
-#include "rcp_types_public.h"
+#include "red/rcp_types_public.h"
 
 #ifdef __cplusplus
 extern "C" {

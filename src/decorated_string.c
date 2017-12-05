@@ -54,9 +54,9 @@
  *
  ********************************************************************************/
 
-#include "decorated_string.h"
+#include "red/decorated_string.h"
 
-#include "stringl.h"
+#include "red/stringl.h"
 
 #include <ctype.h>
 #include <math.h>

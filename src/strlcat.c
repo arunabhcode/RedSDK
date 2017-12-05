@@ -27,7 +27,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "stringl.h"
+#include "red/stringl.h"
 #ifdef STRINGL_USE_LOGGER
 #include "utils/diagnostic/log/log.h"
 #endif

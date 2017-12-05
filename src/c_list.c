@@ -111,7 +111,7 @@
  *
  */
 
-#include "c_list.h"
+#include "red/c_list.h"
 #include <stdio.h>
 #ifdef CLIST_USE_THREADX
 #include "bsp/os/threadx/tx_api.h"
@@ -121,9 +121,9 @@
 #endif
 #include <ctype.h>
 #include <string.h>
-#include "decorated_string.h"
-#include "rcp_parser2.h"
-#include "stringl.h"
+#include "red/decorated_string.h"
+#include "red/rcp_parser2.h"
+#include "red/stringl.h"
 
 #if defined(_MSC_VER) && (_MSC_VER < 1900)
 #define snprintf _snprintf

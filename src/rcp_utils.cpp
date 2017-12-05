@@ -2,8 +2,8 @@
 
 #include <boost/date_time.hpp>
 
-#include "rcp_api.h"
-#include "rcp_utils.h"
+#include "red/rcp_api.h"
+#include "red/rcp_utils.h"
 
 void *rcp_malloc(size_t bytes)
 {
