@@ -1,15 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(REDSDK)
 
-# if(NOT CMAKE_BUILD_TYPE)
-#     set(CMAKE_BUILD_TYPE Release)
-# endif()
-
-message("Build Type: " ${CMAKE_BUILD_TYPE})
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -std=c++0x")
-
 
 add_library(${PROJECT_NAME} STATIC
     src/base64.c
@@ -23,11 +16,7 @@ add_library(${PROJECT_NAME} STATIC
     src/strlcpy.c
 )
 
-find_package(Boost COMPONENTS system filesystem thread REQUIRED)
-
-if(MSVC)
-add_definitions("-DBOOST_ALL_NO_LIB")
-endif()
+find_package(Boost COMPONENTS filesystem thread REQUIRED)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
                           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -44,14 +33,12 @@ if(MSVC)
   endif()
 else()
     target_link_libraries(${PROJECT_NAME} PUBLIC
-      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a ${Boost_LIBRARIES}>
+      $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a>
       $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/lib/libR3DSDKPIC.a>
+      Boost::filesystem
+      Boost::thread
       dl)
 endif()
-
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${Boost_INCLUDE_DIR})
-
-# target_link_libraries(${PROJECT_NAME} $)
 
 if(NOT TARGET uninstall)
   configure_file(
@@ -80,9 +67,13 @@ install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
 
 if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL Release)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib DESTINATION lib CONFIGURATIONS Release)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MD.lib
+            DESTINATION lib
+            CONFIGURATIONS Release)
   elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
-    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib DESTINATION lib CONFIGURATIONS Debug)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib
+            DESTINATION lib
+            CONFIGURATIONS Debug)
   endif()
 else()
     install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
