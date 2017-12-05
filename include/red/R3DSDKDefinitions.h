@@ -125,14 +125,17 @@ enum ImageGammaCurve
 	ImageGammaLog3G12 = 16,				// mid grey point maps to 1/3, encodes 12 stops above mid grey
 	ImageGammaLog3G10 = 18,				// mid grey point maps to 1/3, encodes 10 stops above mid grey
 	ImageGammaREDlogFilm = 9,			// only available with color version 2 or newer, otherwise ignored (REDlog will be used)
+	
+	// Only for IPP2 (ColorVersion3)
+	ImageGammaHybridLogGamma = 19,		// color version 3+
+	ImageGamma2_2 = 20,					// color version 3+
+	ImageGamma2_6 = 21,					// color version 3+;
 
 	// Only for Legacy (ColorVersion2), deprecated and not available in IPP2 decode mode.
-
 	ImageGammaRec709 = 1,				// BT1886 will be used in IPP2 mode.
 	ImageGammaREDgamma4 = 12,			// v4: only available with color version 2, otherwise ignored
 
 	// Below gamma curves are deprecated and not available in IPP2 decode mode, only for ColorVersion2.
-
 	ImageGammaPDlog685 = 4,
 	ImageGammaPDlog985 = 5,
 	ImageGammaCustomPDlog = 6,			// if used CustomPDLogBlackPoint, WhitePoint & Gamma must be set!
@@ -154,14 +157,15 @@ enum ImageColorSpace
 	ImageColorAdobe1998 = 5,
 	ImageColorDCIP3 = 16,				// only available with color version 2 or newer
 	ImageColorProPhotoRGB = 17,			// only available with color version 2 or newer
+	
+	// Only for IPP2 (ColorVersion3)
+	ImageColorDCIP3D65 = 18,			// only available with color version 3 or newer
 
 	// Only for Legacy (ColorVersion2), deprecated and not available in IPP2 decode mode.
-
 	ImageColorDRAGONcolor2 = 12,		// v2: only available with color version 2, otherwise ignored
 	ImageColorREDcolor4 = 11,			// v4: only available with color version 2, otherwise ignored
 
 	// Below color spaces are deprecated and not available in IPP2 decode mode, only for ColorVersion2.
-
 	ImageColorCameraRGB = 0,
 	ImageColorREDspace = 2,
 	ImageColorREDcolor = 3,				// v1: only available with color version 2, otherwise ignored

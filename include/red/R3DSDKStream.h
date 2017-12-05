@@ -79,8 +79,8 @@ public:
 
 	// call from processing thread if ProcessRdpPacket() returned true
 	// returns CSFrameAdded if a block is complete, otherwise returns CSDone or error code
-	CreateStatus WritePacketData(const void * packet, size_t packetLength);
-	CreateStatus WritePacketData(const void * packet, size_t packetLength, bool & isDroppedFrame);
+	CreateStatus WritePacketData(const void * packet, size_t packetLength, Metadata * metadataToFill = NULL);
+	CreateStatus WritePacketData(const void * packet, size_t packetLength, bool & isDroppedFrame, Metadata * metadataToFill = NULL);
 
 private:
 	void * reserved;

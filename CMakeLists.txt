@@ -86,6 +86,7 @@ if(MSVC)
   endif()
 else()
     install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/lib/*.so DESTINATION lib)
 endif()
 
 install(EXPORT ${CMAKE_PROJECT_NAME}Targets NAMESPACE red::
