@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 project(REDSDK)
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
+# if(NOT CMAKE_BUILD_TYPE)
+#     set(CMAKE_BUILD_TYPE Release)
+# endif()
 
 message("Build Type: " ${CMAKE_BUILD_TYPE})
 
