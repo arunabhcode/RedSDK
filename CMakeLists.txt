@@ -54,7 +54,9 @@ if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 endif()
 
 file(WRITE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
-    "include(\${CMAKE_CURRENT_LIST_DIR}/${CMAKE_PROJECT_NAME}Targets.cmake)\n")
+  "include(CMakeFindDependencyMacro)\n"
+  "find_dependency(Boost COMPONENTS filesystem thread REQUIRED)\n"
+  "include(\${CMAKE_CURRENT_LIST_DIR}/${CMAKE_PROJECT_NAME}Targets.cmake)\n")
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include
   DESTINATION ${CMAKE_INSTALL_PREFIX}
