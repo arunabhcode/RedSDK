@@ -72,6 +72,8 @@ if(MSVC)
   install(FILES ${CMAKE_SOURCE_DIR}/lib/R3DSDK-2015MDd.lib
           DESTINATION lib
           CONFIGURATIONS Debug)
+  install(FILES ${CMAKE_SOURCE_DIR}/bin/REDR3D-x64.dll
+          DESTINATION bin)
 else()
   install(FILES ${CMAKE_SOURCE_DIR}/lib/libR3DSDKPIC.a DESTINATION lib)
   install(FILES ${CMAKE_SOURCE_DIR}/lib/REDR3D-x64.so DESTINATION lib)
