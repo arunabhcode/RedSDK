@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.9)
 project(REDSDK)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
+
+find_package(Boost COMPONENTS filesystem thread REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
     src/base64.c
@@ -16,7 +18,7 @@ add_library(${PROJECT_NAME} STATIC
     src/strlcpy.c
 )
 
-find_package(Boost COMPONENTS filesystem thread REQUIRED)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
                           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
